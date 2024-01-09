@@ -52,7 +52,8 @@ export class PlayerStore{
             id:this.counter++,
             name:name,
             bigHead:bigHead,
-            points:0
+            points:0,
+            letter_guessed:[]
             
         })
       }
@@ -64,6 +65,7 @@ export class PlayerStore{
       generateWord(){
         this.players.forEach(p=>{
           p.points=0;
+          p.letter_guessed=[];
         })
         this.temp_letterBank=letterBank;
         this.shownWord="";
@@ -75,10 +77,14 @@ export class PlayerStore{
       }
 
       guessLetter(){
+        let alerted=false;
         this.players.forEach(player=>{
           let letter=this.temp_letterBank[Math.floor(Math.random()*this.temp_letterBank.length)];
+          player.letter_guessed=[...player.letter_guessed,letter];
+          console.log(player.name+" "+JSON.stringify(player.letter_guessed));
           if(this.word.includes(letter)){
             let newShownWord="";
+
             for(let i=0;i<this.word.length;i++){
               if(this.word.split("")[i]==letter)
                 newShownWord+=letter;
@@ -90,14 +96,20 @@ export class PlayerStore{
           }
           this.temp_letterBank.splice(this.temp_letterBank.indexOf(letter),1);
           if(!(this.shownWord.includes("_"))){
-            this.gameStarted=false;
             let winner=this.players[0];
             for(let i=1;i<this.players.length;i++){
               if(this.players[i].points>winner.points)
                 winner=this.players[i];
 
             }
-            alert(winner.name+" Has won,with "+winner.points+" correct letters");
+            setTimeout(()=>{this.gameStarted=false;},1000)
+            if(!alerted){
+              alert(winner.name+" Has won,with "+winner.points+" correct letters");
+              alerted=true;
+              }
+            
+            
+
             return;
           }
         });

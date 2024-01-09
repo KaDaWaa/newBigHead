@@ -28,10 +28,10 @@ const Game=observer(({playerStore})=>{
     
     return(<>
     {!playerStore.gameStarted ?
-        <>
+        <div style={{display:"flex",justifyContent:"center", flexDirection:"column"}}>
         <AddPlayer playerStore={playerStore}/>
         <PlayerList playerStore={playerStore}/>
-        </>
+        </div>
         :<>
         <PlayerList playerStore={playerStore}/>
         <h2 style={{display:"flex",justifyContent:"center"}}>{playerStore.shownWord}</h2>

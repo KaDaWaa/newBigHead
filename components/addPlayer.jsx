@@ -18,14 +18,14 @@ const AddPlayer=observer(({playerStore}) => {
     }
 
 
-    return(<>
+    return(<div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
         <div> {bigHead && <BigHead style={{width:"250px",height:"250px"}} {...bigHead}/>}</div>
 
         <input type="text" name="playername" value={name} onChange={(e)=>setName(e.target.value)} />
         <button onClick={()=>setBigHead(getRandomBighead())}>Random Head</button>
         <button onClick={()=>{ console.log("added");playerStore.addPlayer({name,bigHead});setBigHead(getRandomBighead()); setName("")}}>Add</button>
         {playerStore.players.length>=2 && playerStore.players.length<=5 && <button onClick={()=>{startGame()}}>Start game</button>}
-        </>
+        </div>
         
     )
 });

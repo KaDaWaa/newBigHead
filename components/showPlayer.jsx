@@ -12,7 +12,12 @@ const ShowPlayer=({deletePlayer,player,gameStarted})=>{
         <BigHead style={{width:"200px"}} {...player.bigHead}/>
         {!gameStarted &&<button onClick={()=>deletePlayer(player.id)}>Delete</button>}
         <br></br>
-        {gameStarted && <h3>{player.points}</h3>}
+        {gameStarted && <>
+        <h3>{player.points}</h3> 
+        <div style={{display:"flex", flexDirection:"row"}}>guessed letters:{player.letter_guessed.map((l)=>{
+            return <p> {l} </p>
+        })}</div>
+        </>}
         </>
     )
 };
